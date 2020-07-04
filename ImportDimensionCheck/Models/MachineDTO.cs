@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ImportDimensionCheck.Models
 {
-    public partial class Machine
+    public partial class MachineDTO
     {
-        public string Machine1 { get; set; }
+        public string Machine { get; set; }
         public string MachineName { get; set; }
         public string WH { get; set; }
         public string WC { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ImportDimensionCheck.Models
 {
-    public partial class QC
+    public partial class QCDTO
     {
         public string QCNO { get; set; }
         public DateTime? QCDate { get; set; }

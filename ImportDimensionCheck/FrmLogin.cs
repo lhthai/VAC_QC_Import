@@ -14,39 +14,38 @@ namespace ImportDimensionCheck
 {
     public partial class FrmLogin : Form
     {
+        public static UserMasterDTO currentUser;
+        ConnectionString conn = new ConnectionString();
+
+        public UserMasterDTO GetCurrentUser()
+        {
+            return currentUser;
+        }
+
         public FrmLogin()
         {
             InitializeComponent();
-           
-        }
-
-        private void txtMachine_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
-        private void btnLogon_Click(object sender, EventArgs e)
+
+        private void Logon(string username, string password)
         {
-            Logon(txtEmployee.Text, txtPassword.Text);
-        }
-
-
-        private void Logon(string employee, string password)
-        {
-
             try
             {
                 using (VACP4DBContext db = new VACP4DBContext())
                 {
-                    var emp = db.Employee.Where(x => x.Employee1 == employee && x.EmployeePWD==password).FirstOrDefault();
-                    if (emp == null)
+                    var user = db.UserMaster.Where(x => x.UserId == username && x.Password == password).FirstOrDefault();
+                    if (user != null)
                     {
-                        MessageBox.Show("Invalid username or password!", "Error", MessageBoxButtons.OK);
-                        ClearInput();
+                        currentUser = user;
+                        FrmImport frm = new FrmImport();
+                        frm.Show();
+                        this.Hide();
                     }
                     else
                     {
-                        txtEmployeeName.Text = emp.EmployeeName;
+                        MessageBox.Show("Invalid username or password!", "Error", MessageBoxButtons.OK);
                     }
                 }
             }
@@ -54,33 +53,47 @@ namespace ImportDimensionCheck
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
             }
-            
+
         }
 
-        private void ClearInput()
+        private void btnLogon_Click(object sender, EventArgs e)
         {
-            txtEmployee.Text = "";
-            txtPassword.Text = "";
+            conn.DBName = cbDatabase.SelectedItem.ToString();
+            Logon(txtUsername.Text.Trim(), txtPassword.Text.Trim());
         }
 
-        private void txtMachine_KeyDown(object sender, KeyEventArgs e)
+        private void btnLogout_Click(object sender, EventArgs e)
         {
-            if(e.KeyCode==Keys.Enter || e.KeyCode == Keys.Tab)
+            this.Close();
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-                using (VACP4DBContext db = new VACP4DBContext())
-                {
-                    var machine = db.Machine.Where(x => x.Machine1 == txtMachine.Text.Trim()).FirstOrDefault();
-                    if (machine == null)
-                    {
-                        MessageBox.Show("Invalid machine", "Error", MessageBoxButtons.OK);
-                        ClearInput();
-                    }
-                    else
-                    {
-                        txtMachineName.Text = machine.MachineName;
-                    }
-                }
+                Logon(txtUsername.Text.Trim(), txtPassword.Text.Trim());
             }
+        }
+
+        private void currentTime_Tick(object sender, EventArgs e)
+        {
+            lblDateTime.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+        }
+
+        private void btnChangeDB_Click(object sender, EventArgs e)
+        {
+            cbDatabase.Enabled = true;
+        }
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            cbDatabase.SelectedItem = "VACP4DB";
+        }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            FrmConfig frm = new FrmConfig();
+            frm.Show();
         }
     }
 }

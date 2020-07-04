@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace ImportDimensionCheck.Models
 {
-    public partial class BatchCode
+    public partial class BatchCodeDTO
     {
         public string Product { get; set; }
-        public string BatchCode1 { get; set; }
+        public string BatchCode { get; set; }
         public string ProductName { get; set; }
         public double? Qty { get; set; }
         public string UOM { get; set; }

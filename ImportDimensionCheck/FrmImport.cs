@@ -12,9 +12,15 @@ namespace ImportDimensionCheck
 {
     public partial class FrmImport : Form
     {
+        FrmLogin frmLogin = new FrmLogin();
         public FrmImport()
         {
             InitializeComponent();
+        }
+
+        private void FrmImport_Load(object sender, EventArgs e)
+        {
+            lblWelcome.Text = "Welcome " + frmLogin.GetCurrentUser().UserId;
         }
     }
 }

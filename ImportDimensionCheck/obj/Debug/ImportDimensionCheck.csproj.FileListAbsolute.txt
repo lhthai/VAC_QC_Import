@@ -75,3 +75,4 @@ D:\Code\Winform\ImportDimensionCheck\ImportDimensionCheck\obj\Debug\ImportDimens
 D:\Code\Winform\ImportDimensionCheck\ImportDimensionCheck\obj\Debug\ImportDimensionCheck.pdb
 D:\Code\Winform\ImportDimensionCheck\ImportDimensionCheck\obj\Debug\ImportDimensionCheck.FrmImport.resources
 D:\Code\Winform\ImportDimensionCheck\ImportDimensionCheck\obj\Debug\ImportDimensionCheck.FrmLogin.resources
+D:\Code\Winform\ImportDimensionCheck\ImportDimensionCheck\obj\Debug\ImportDimensionCheck.FrmConfig.resources
